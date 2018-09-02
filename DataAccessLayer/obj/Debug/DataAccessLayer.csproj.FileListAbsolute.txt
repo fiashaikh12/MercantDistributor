@@ -1,0 +1,4 @@
+C:\Users\FIROZ\Desktop\MerchantDistributorAPISolution\MerchantDistributorServices_API\DataAccessLayer\bin\Debug\DataAccessLayer.dll
+C:\Users\FIROZ\Desktop\MerchantDistributorAPISolution\MerchantDistributorServices_API\DataAccessLayer\bin\Debug\DataAccessLayer.pdb
+C:\Users\FIROZ\Desktop\MerchantDistributorAPISolution\MerchantDistributorServices_API\DataAccessLayer\obj\Debug\DataAccessLayer.dll
+C:\Users\FIROZ\Desktop\MerchantDistributorAPISolution\MerchantDistributorServices_API\DataAccessLayer\obj\Debug\DataAccessLayer.pdb

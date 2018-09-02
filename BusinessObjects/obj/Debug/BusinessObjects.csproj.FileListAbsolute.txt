@@ -1,0 +1,5 @@
+C:\Users\FIROZ\Desktop\MerchantDistributorAPISolution\MerchantDistributorServices_API\BusinessObjects\bin\Debug\BusinessObjects.dll
+C:\Users\FIROZ\Desktop\MerchantDistributorAPISolution\MerchantDistributorServices_API\BusinessObjects\bin\Debug\BusinessObjects.pdb
+C:\Users\FIROZ\Desktop\MerchantDistributorAPISolution\MerchantDistributorServices_API\BusinessObjects\obj\Debug\BusinessObjects.dll
+C:\Users\FIROZ\Desktop\MerchantDistributorAPISolution\MerchantDistributorServices_API\BusinessObjects\obj\Debug\BusinessObjects.pdb
+C:\Users\FIROZ\Desktop\MerchantDistributorAPISolution\MerchantDistributorServices_API\BusinessObjects\obj\Debug\BusinessObjects.csprojResolveAssemblyReference.cache
