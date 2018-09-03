@@ -90,7 +90,7 @@ namespace BusinessLogicLayer.Repository
             catch (Exception ex)
             {
                 //WRITE ERROR LOG
-                LogManager.WriteLog(ex, ErrorLevel.Critical);
+                LogManager.WriteLog(ex, ErrorSeverityLevel.Critical);
             }
             return IsValidUser;
         }
@@ -122,7 +122,7 @@ namespace BusinessLogicLayer.Repository
             catch (Exception ex)
             {
                 //WRITE ERROR LOG
-                LogManager.WriteLog(ex, ErrorLevel.Important);
+                LogManager.WriteLog(ex, ErrorSeverityLevel.Important);
             }
             return returnValue;
         }

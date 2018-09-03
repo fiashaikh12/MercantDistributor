@@ -2,6 +2,11 @@
 {
     public class Enumeration
     {
+        public enum Role{
+            SuperAdmin,
+            Admin,
+            User
+        }
         public enum UserType
         {
             Merchant,

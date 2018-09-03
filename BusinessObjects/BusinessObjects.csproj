@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,6 +44,8 @@
     <Compile Include="Entities\Common.cs" />
     <Compile Include="Entities\Error\ErrorDetails.cs" />
     <Compile Include="Entities\Jwt\JWTAuthenticationIdentity.cs" />
+    <Compile Include="Entities\Message.cs" />
+    <Compile Include="Entities\Message_Recipeint.cs" />
     <Compile Include="Entities\ProductDetails.cs" />
     <Compile Include="Entities\Response.cs" />
     <Compile Include="Entities\User.cs" />

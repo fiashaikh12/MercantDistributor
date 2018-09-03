@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using static Enum.Enumeration;
 
 namespace Entities
@@ -14,7 +15,7 @@ namespace Entities
         public string Password { get; set; }
         public string FullName { get; set; }
         public string EmaillAddress { get; set; }
-        public UserType RoleId { get; set; }
+        public Role RoleId { get; set; }
     }
     public class AddressDetails:CompanyDetails
     {

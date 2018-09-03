@@ -41,7 +41,7 @@ namespace BusinessLogicLayer.Repository
         #endregion
 
         #region Write log to database
-        public static void WriteLog(Exception ex, ErrorLevel level)
+        public static void WriteLog(Exception ex, ErrorSeverityLevel level)
         {
             
             try

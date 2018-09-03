@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using static Enum.Enumeration;
 
 namespace MerchantDistributorService_API.Controllers
 {
@@ -39,7 +40,7 @@ namespace MerchantDistributorService_API.Controllers
             }
             catch (Exception ex)
             {
-                //LogManager.WriteLog(ex);
+                LogManager.WriteLog(ex, ErrorSeverityLevel.Important);
                 HttpError httpError = new HttpError(ex, true) { { "IsSuccess", false } };
                 return Request.CreateErrorResponse(HttpStatusCode.OK, httpError);
             }
@@ -62,7 +63,7 @@ namespace MerchantDistributorService_API.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.WriteLog(ex,Enum.Enumeration.ErrorLevel.None);
+                LogManager.WriteLog(ex,ErrorSeverityLevel.None);
                 HttpError httpError = new HttpError(ex, true) { { "IsSuccess", false } };
                 return Request.CreateResponse(HttpStatusCode.OK, httpError);
             }
@@ -71,12 +72,30 @@ namespace MerchantDistributorService_API.Controllers
         [HttpGet]
         public HttpResponseMessage GetStates()
         {
-            try {
+            try
+            {
                 return Request.CreateResponse(HttpStatusCode.OK, _commonRepository.GetStates());
             }
-            finally
+            catch (Exception ex)
             {
+                LogManager.WriteLog(ex, ErrorSeverityLevel.Important);
+                HttpError httpError = new HttpError(ex, true) { { "IsSuccess", false } };
+                return Request.CreateResponse(HttpStatusCode.OK, httpError);
+            }
+        }
 
+        [HttpGet]
+        public HttpResponseMessage GetGender()
+        {
+            try
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, _commonRepository.GetGenders());
+            }
+            catch (Exception ex)
+            {
+                LogManager.WriteLog(ex, ErrorSeverityLevel.Important);
+                HttpError httpError = new HttpError(ex, true) { { "IsSuccess", false } };
+                return Request.CreateResponse(HttpStatusCode.OK, httpError);
             }
         }
         //[HttpPost]

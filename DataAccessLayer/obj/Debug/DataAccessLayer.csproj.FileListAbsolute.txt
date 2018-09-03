@@ -2,3 +2,8 @@ C:\Users\FIROZ\Desktop\MerchantDistributorAPISolution\MerchantDistributorService
 C:\Users\FIROZ\Desktop\MerchantDistributorAPISolution\MerchantDistributorServices_API\DataAccessLayer\bin\Debug\DataAccessLayer.pdb
 C:\Users\FIROZ\Desktop\MerchantDistributorAPISolution\MerchantDistributorServices_API\DataAccessLayer\obj\Debug\DataAccessLayer.dll
 C:\Users\FIROZ\Desktop\MerchantDistributorAPISolution\MerchantDistributorServices_API\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
+C:\Users\firoz_shaikh\source\repos\MercantDistributor\DataAccessLayer\bin\Debug\DataAccessLayer.dll
+C:\Users\firoz_shaikh\source\repos\MercantDistributor\DataAccessLayer\bin\Debug\DataAccessLayer.pdb
+C:\Users\firoz_shaikh\source\repos\MercantDistributor\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CoreCompileInputs.cache
+C:\Users\firoz_shaikh\source\repos\MercantDistributor\DataAccessLayer\obj\Debug\DataAccessLayer.dll
+C:\Users\firoz_shaikh\source\repos\MercantDistributor\DataAccessLayer\obj\Debug\DataAccessLayer.pdb

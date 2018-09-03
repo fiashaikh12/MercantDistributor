@@ -7,16 +7,14 @@ using System.Threading.Tasks;
 
 namespace BusinessObjects.Entities
 {
-     public class Response
+    public class ServiceRes
     {
-        public Response()
-        {
-            this.IsSucces = true;
-            this.Token = string.Empty;
-            this.responseMsg = new HttpResponseMessage() { StatusCode=System.Net.HttpStatusCode.Unauthorized };
-        }
-        public bool IsSucces { get; set; }
-        public string Token { get; set; }
-        public HttpResponseMessage responseMsg { get; set; }
+        public bool IsSuccess { get; set; }
+        public string ReturnCode { get; set; }
+        public string ReturnMsg { get; set; }
+    }
+    public class ServiceRes<ExtraDataClass> : ServiceRes
+    {
+        public ExtraDataClass Data { get; set; }
     }
 }
