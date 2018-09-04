@@ -9,7 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using static Enum.Enumeration;
+using static Enum.Enums;
 
 namespace MerchantDistributorService_API.Controllers
 {
@@ -22,25 +22,19 @@ namespace MerchantDistributorService_API.Controllers
             this._userRepository = userRepo;
             this._commonRepository = commonRepo;
         }
+
         [HttpPost]
         public HttpResponseMessage ValidateUser(User request)
         {
             try
             {
-                if (_userRepository.IsUserValid(request))
-                {
                     //AuthenticationRepository authRepo = AuthenticationRepository.GetInstance;
                     //authRepo.GenerateToken(request.MobileNumber, 12);
-                    return Request.CreateResponse(HttpStatusCode.OK,"200");
-                }
-                else
-                {
-                    return Request.CreateResponse(HttpStatusCode.Unauthorized);
-                }
+                    return Request.CreateResponse(HttpStatusCode.OK, _userRepository.IsUserValid(request));
             }
             catch (Exception ex)
             {
-                LogManager.WriteLog(ex, ErrorSeverityLevel.Important);
+                LogManager.WriteLog(ex, SeverityLevel.Important);
                 HttpError httpError = new HttpError(ex, true) { { "IsSuccess", false } };
                 return Request.CreateErrorResponse(HttpStatusCode.OK, httpError);
             }
@@ -50,20 +44,12 @@ namespace MerchantDistributorService_API.Controllers
         public HttpResponseMessage RegisterUser(Registration request) {
             try
             {
-                var response = _userRepository.RegisterUser(request);
-                if (response == 1)
-                {
-                    return Request.CreateResponse(HttpStatusCode.Ambiguous);
-                }
-                else
-                {
-                    return Request.CreateResponse(HttpStatusCode.OK);
-                }
+                return Request.CreateResponse(HttpStatusCode.Ambiguous, _userRepository.RegisterUser(request));
                 
             }
             catch (Exception ex)
             {
-                LogManager.WriteLog(ex,ErrorSeverityLevel.None);
+                LogManager.WriteLog(ex,SeverityLevel.None);
                 HttpError httpError = new HttpError(ex, true) { { "IsSuccess", false } };
                 return Request.CreateResponse(HttpStatusCode.OK, httpError);
             }
@@ -78,7 +64,7 @@ namespace MerchantDistributorService_API.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.WriteLog(ex, ErrorSeverityLevel.Important);
+                LogManager.WriteLog(ex, SeverityLevel.Important);
                 HttpError httpError = new HttpError(ex, true) { { "IsSuccess", false } };
                 return Request.CreateResponse(HttpStatusCode.OK, httpError);
             }
@@ -93,11 +79,27 @@ namespace MerchantDistributorService_API.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.WriteLog(ex, ErrorSeverityLevel.Important);
+                LogManager.WriteLog(ex, SeverityLevel.Important);
                 HttpError httpError = new HttpError(ex, true) { { "IsSuccess", false } };
                 return Request.CreateResponse(HttpStatusCode.OK, httpError);
             }
         }
+
+        [HttpGet]
+        public HttpResponseMessage GetCityByStates(States request)
+        {
+            try
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, _commonRepository.GetCitiesByState(request));
+            }
+            catch (Exception ex)
+            {
+                LogManager.WriteLog(ex, SeverityLevel.Important);
+                HttpError httpError = new HttpError(ex, true) { { "IsSuccess", false } };
+                return Request.CreateResponse(HttpStatusCode.OK, httpError);
+            }
+        }
+
         //[HttpPost]
         //public HttpResponseMessage UpdateAddressDetails([FromBody]AddressDetails request)
         //{

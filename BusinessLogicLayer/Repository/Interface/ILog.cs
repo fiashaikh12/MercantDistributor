@@ -1,10 +1,10 @@
 ﻿using System;
-using static Enum.Enumeration;
+using static Enum.Enums;
 
-namespace BusinessLogicLayer.Repository.Interface
+namespace Repository
 {
     public interface ILog
     {
-        void WriteLog(Exception ex, ErrorSeverityLevel level);
+        void WriteLog(Exception ex, SeverityLevel level);
     }
 }

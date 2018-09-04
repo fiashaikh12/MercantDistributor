@@ -1,12 +1,12 @@
 ﻿using System;
-using static Enum.Enumeration;
+using static Enum.Enums;
 
-namespace BusinessObjects.Entities.Error
+namespace Entities
 {
     public class ErrorDetails
     {
         public DateTime ? Time { get; set; }
-        public ErrorSeverityLevel SeverityLevel { get; set; }
+        public SeverityLevel SeverityLevel { get; set; }
         public string Type { get; set; }
         public string  Source { get; set; }
         public string  Message { get; set; }

@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 
-namespace MerchantDistributorService_API.Filters
+namespace Filters
 {
     public class JwtAuthenticationAttribute: AuthorizationFilterAttribute
     {

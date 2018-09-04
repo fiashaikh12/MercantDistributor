@@ -1,11 +1,11 @@
 ﻿namespace Enum
 {
-    public class Enumeration
+    public class Enums
     {
-        public enum Role{
-            SuperAdmin,
+        public enum RoleType{
             Admin,
-            User
+            User,
+            Child
         }
         public enum UserType
         {
@@ -17,7 +17,7 @@
             Home,
             Office
         }
-        public enum ErrorSeverityLevel
+        public enum SeverityLevel
         {
             None,
             Important,

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using BusinessLogicLayer.Repository.Interface;
-using BusinessObjects.Entities;
+using Repository;
+using Entities;
 using DataAccessLayer;
 using System.Data;
 
-namespace BusinessLogicLayer.Repository
+namespace Repository
 {
     public class ProductRepository : IProductRepository
     {

@@ -4,11 +4,9 @@ namespace Repository
 {
     public interface IUserRepository
     {
-        bool IsUserValid(User objUser);
-        int RegisterUser(Registration objRegister);
-        bool UnlockUserAccount(User objUser);
-        bool ChangePassword(ChangePassword changePassword);
-        //int UpdateAddressDetails(AddressDetails objAddress);
-        //int UpdateCompanyDetails(CompanyDetails objCompany);
+        ServiceRes IsUserValid(User objUser);
+        ServiceRes RegisterUser(Registration objRegister);
+        ServiceRes UnlockUserAccount(User objUser);
+        ServiceRes ChangePassword(ChangePassword changePassword);
     }
 }

@@ -1,21 +1,6 @@
 ﻿namespace Entities
 {
-    public class Response<T>
-    {
-        private string _status;
-        private string _message;
-        public string Status
-        {
-            get { return _status; }
-            set { _status = value; }
-        }
-        public string Message
-        {
-            get { return _message; }
-            set { _message = value; }
-        }
-        public T Data {get;set;}
-    }
+
     public class States
     {
         private int _stateId;

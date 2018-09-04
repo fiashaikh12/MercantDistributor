@@ -7,14 +7,16 @@ using Entities;
 using System.Data.SqlClient;
 using DataAccessLayer;
 using System.Data;
+using BusinessLogicLayer.Repository;
+using static Enum.Enums;
 
 namespace Repository
 {
     public class CommonRepository : ICommonRepository
     {
-        public List<Cities> GetCitiesByState(States states)
+        public ServiceRes<List<Cities>> GetCitiesByState(States states)
         {
-            List<Cities> cities = new List<Cities>();
+            ServiceRes<List<Cities>> cities = new ServiceRes<List<Cities>>();
             try {
                 SqlParameter[] sqlParameter = new SqlParameter[1];
                 sqlParameter[0] = new SqlParameter { ParameterName = "@StateId", Value = states.StateId };
@@ -25,15 +27,15 @@ namespace Repository
                         CityId = Convert.ToInt32(row["CityId"]),
                         City=Convert.ToString(row["City"])
                     };
-                    cities.Add(city);
+                    cities.Data.Add(city);
                 }
             }
             catch(Exception ex) { throw ex; }
             return cities;
         }
-        public List<Genders> GetGenders()
+        public ServiceRes<List<Genders>> GetGenders()
         {
-            List<Genders> genders = new List<Genders>();
+            ServiceRes<List<Genders>> genders = new ServiceRes<List<Genders>>();
             try
             {
                 DataTable dtCities = SqlHelper.GetTableFromSP("Usp_GetGender");
@@ -44,15 +46,16 @@ namespace Repository
                         GenderId = Convert.ToInt32(row["GenderId"]),
                         Gender = Convert.ToString(row["Gender"])
                     };
-                    genders.Add(gender);
+                    genders.Data.Add(gender);
                 }
             }
             catch (Exception ex) { throw ex; }
             return genders;
         }
-        public List<States> GetStates()
+        public ServiceRes<List<States>> GetStates()
         {
-            List<States> states = new List<States>();
+
+            ServiceRes<List<States>> serviceRes = new ServiceRes<List<States>>();
             try
             {
                 DataTable dtCities = SqlHelper.GetTableFromSP("Usp_GetStates");
@@ -63,11 +66,11 @@ namespace Repository
                         StateId = Convert.ToInt32(row["StateId"]),
                         State = Convert.ToString(row["State"])
                     };
-                    states.Add(state);
+                    serviceRes.Data.Add(state);
                 }
             }
-            catch (Exception ex) { throw ex; }
-            return states;
+            catch (Exception ex) { LogManager.WriteLog(ex, SeverityLevel.Critical); }
+            return serviceRes;
         }
     }
 }

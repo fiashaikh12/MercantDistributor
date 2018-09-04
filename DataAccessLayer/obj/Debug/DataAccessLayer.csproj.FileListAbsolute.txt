@@ -7,3 +7,4 @@ C:\Users\firoz_shaikh\source\repos\MercantDistributor\DataAccessLayer\bin\Debug\
 C:\Users\firoz_shaikh\source\repos\MercantDistributor\DataAccessLayer\obj\Debug\DataAccessLayer.csproj.CoreCompileInputs.cache
 C:\Users\firoz_shaikh\source\repos\MercantDistributor\DataAccessLayer\obj\Debug\DataAccessLayer.dll
 C:\Users\firoz_shaikh\source\repos\MercantDistributor\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
+C:\Users\firoz_shaikh\source\repos\MercantDistributor\DataAccessLayer\obj\Debug\DataAccessLayer.csprojAssemblyReference.cache

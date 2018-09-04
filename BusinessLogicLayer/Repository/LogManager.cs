@@ -1,14 +1,14 @@
-﻿using BusinessLogicLayer.Repository.Interface;
-using BusinessObjects.Entities.Error;
+﻿using Repository;
+using Entities;
 using DataAccessLayer;
 using System;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
-using static Enum.Enumeration;
+using static Enum.Enums;
 
-namespace BusinessLogicLayer.Repository
+namespace Repository
 {
     public class LogManager
     {
@@ -41,7 +41,7 @@ namespace BusinessLogicLayer.Repository
         #endregion
 
         #region Write log to database
-        public static void WriteLog(Exception ex, ErrorSeverityLevel level)
+        public static void WriteLog(Exception ex, SeverityLevel level)
         {
             
             try
@@ -68,11 +68,6 @@ namespace BusinessLogicLayer.Repository
                 SqlHelper.ExecuteNonQuery("Usp_ErrorLog", parameter);
             }
             catch(Exception exce) { throw exce; }
-        }
-
-        internal static void WriteLog(Exception ex, object critical)
-        {
-            throw new NotImplementedException();
         }
         #endregion
     }

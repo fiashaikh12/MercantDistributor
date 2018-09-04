@@ -1,7 +1,7 @@
-﻿using BusinessObjects.Entities;
+﻿using Entities;
 using System.Collections.Generic;
 
-namespace BusinessLogicLayer.Repository.Interface
+namespace Repository
 {
     public interface IProductRepository
     {

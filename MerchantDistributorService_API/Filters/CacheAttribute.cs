@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Http.Filters;
 
-namespace MerchantDistributorService_API.Filters
+namespace Filters
 {
     public class CacheAttribute: ActionFilterAttribute
     {

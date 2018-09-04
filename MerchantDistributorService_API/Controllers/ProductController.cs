@@ -1,14 +1,8 @@
-﻿using BusinessLogicLayer.Repository;
-using BusinessLogicLayer.Repository.Interface;
-using BusinessObjects.Entities;
-using MerchantDistributorService_API.Filters;
+﻿using Repository;
+using Filters;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Formatting;
-using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace MerchantDistributorService_API.Controllers

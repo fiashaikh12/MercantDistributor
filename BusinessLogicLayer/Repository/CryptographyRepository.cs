@@ -1,10 +1,10 @@
-﻿using BusinessLogicLayer.Repository.Interface;
+﻿using Repository;
 using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace BusinessLogicLayer.Repository
+namespace Repository
 {
     public class CryptographyRepository : ICryptography
     {
