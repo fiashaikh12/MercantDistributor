@@ -52,19 +52,21 @@ namespace Repository
                 {
                     Time = DateTime.Now,
                     SeverityLevel = level,
-                    Type = Convert.ToString(ex.InnerException),
+                    InnerInception = Convert.ToString(ex.InnerException),
+                    MethodName = frame.GetMethod().Name,
                     Message = ex.Message,
                     Source = ex.Source,
                     LineNumber = frame.GetFileLineNumber()
                 };
 
-                SqlParameter[] parameter = new SqlParameter[6];
+                SqlParameter[] parameter = new SqlParameter[7];
                 parameter[0] = new SqlParameter { ParameterName = "@ErrorLevel", Value = (int)objError.SeverityLevel };
-                parameter[1] = new SqlParameter { ParameterName = "@FunctionName", Value = objError.Type };
+                parameter[1] = new SqlParameter { ParameterName = "@MethodName", Value = objError.MethodName };
                 parameter[2] = new SqlParameter { ParameterName = "@LineNum", Value = objError.LineNumber };
                 parameter[3] = new SqlParameter { ParameterName = "@Source", Value = objError.Source };
                 parameter[4] = new SqlParameter { ParameterName = "@Message", Value = objError.Message };
                 parameter[5] = new SqlParameter { ParameterName = "@ErrorDate", Value = objError.Time };
+                parameter[6] = new SqlParameter { ParameterName = "@InnerInception", Value = objError.InnerInception };
                 SqlHelper.ExecuteNonQuery("Usp_ErrorLog", parameter);
             }
             catch(Exception exce) { throw exce; }

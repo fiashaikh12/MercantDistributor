@@ -14,30 +14,45 @@ namespace Repository
 {
     public class CommonRepository : ICommonRepository
     {
-        public ServiceRes<List<Cities>> GetCitiesByState(States states)
+        public ServiceRes GetCitiesByState(States states)
         {
-            ServiceRes<List<Cities>> cities = new ServiceRes<List<Cities>>();
-            try {
+            ServiceRes<List<Cities>> serviceRes = new ServiceRes<List<Cities>>();
+            try
+            {
+                List<Cities> cities = new List<Cities>();
                 SqlParameter[] sqlParameter = new SqlParameter[1];
                 sqlParameter[0] = new SqlParameter { ParameterName = "@StateId", Value = states.StateId };
                 DataTable dtCities = SqlHelper.GetTableFromSP("Usp_GetCitiesByState", sqlParameter);
-                foreach(DataRow row in dtCities.Rows)
+                foreach (DataRow row in dtCities.Rows)
                 {
-                    Cities city = new Cities {
+                    Cities city = new Cities
+                    {
                         CityId = Convert.ToInt32(row["CityId"]),
-                        City=Convert.ToString(row["City"])
+                        City = Convert.ToString(row["City"])
                     };
-                    cities.Data.Add(city);
+                    cities.Add(city);
                 }
+                serviceRes.Data = cities;
+                serviceRes.IsSuccess = true;
+                serviceRes.ReturnCode = "200";
+                serviceRes.ReturnMsg = "";
             }
-            catch(Exception ex) { throw ex; }
-            return cities;
+            catch (Exception ex)
+            {
+                LogManager.WriteLog(ex, SeverityLevel.Critical);
+                serviceRes.Data = null;
+                serviceRes.IsSuccess = false;
+                serviceRes.ReturnCode = "500";
+                serviceRes.ReturnMsg = "Something went wrong";
+            }
+            return serviceRes;
         }
-        public ServiceRes<List<Genders>> GetGenders()
+        public ServiceRes GetGenders()
         {
-            ServiceRes<List<Genders>> genders = new ServiceRes<List<Genders>>();
+            ServiceRes<List<Genders>> serviceRes = new ServiceRes<List<Genders>>();
             try
             {
+                List<Genders> genders = new List<Genders>();
                 DataTable dtCities = SqlHelper.GetTableFromSP("Usp_GetGender");
                 foreach (DataRow row in dtCities.Rows)
                 {
@@ -46,18 +61,29 @@ namespace Repository
                         GenderId = Convert.ToInt32(row["GenderId"]),
                         Gender = Convert.ToString(row["Gender"])
                     };
-                    genders.Data.Add(gender);
+                    genders.Add(gender);
                 }
+                serviceRes.Data = genders;
+                serviceRes.IsSuccess = true;
+                serviceRes.ReturnCode = "200";
+                serviceRes.ReturnMsg = "";
             }
-            catch (Exception ex) { throw ex; }
-            return genders;
+            catch (Exception ex)
+            {
+                LogManager.WriteLog(ex, SeverityLevel.Critical);
+                serviceRes.Data = null;
+                serviceRes.IsSuccess = false;
+                serviceRes.ReturnCode = "500";
+                serviceRes.ReturnMsg = "Something went wrong";
+            }
+            return serviceRes;
         }
-        public ServiceRes<List<States>> GetStates()
+        public ServiceRes GetStates()
         {
-
             ServiceRes<List<States>> serviceRes = new ServiceRes<List<States>>();
             try
             {
+                List<States> states = new List<States>();
                 DataTable dtCities = SqlHelper.GetTableFromSP("Usp_GetStates");
                 foreach (DataRow row in dtCities.Rows)
                 {
@@ -66,10 +92,21 @@ namespace Repository
                         StateId = Convert.ToInt32(row["StateId"]),
                         State = Convert.ToString(row["State"])
                     };
-                    serviceRes.Data.Add(state);
+                    states.Add(state);
                 }
+                serviceRes.Data = states;
+                serviceRes.IsSuccess = true;
+                serviceRes.ReturnCode = "200";
+                serviceRes.ReturnMsg = "";
             }
-            catch (Exception ex) { LogManager.WriteLog(ex, SeverityLevel.Critical); }
+            catch (Exception ex)
+            {
+                LogManager.WriteLog(ex, SeverityLevel.Critical);
+                serviceRes.Data = null;
+                serviceRes.IsSuccess = false;
+                serviceRes.ReturnCode = "500";
+                serviceRes.ReturnMsg = "Something went wrong";
+            }
             return serviceRes;
         }
     }

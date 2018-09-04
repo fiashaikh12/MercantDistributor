@@ -7,7 +7,8 @@ namespace Entities
     {
         public DateTime ? Time { get; set; }
         public SeverityLevel SeverityLevel { get; set; }
-        public string Type { get; set; }
+        public string  InnerInception { get; set; }
+        public string MethodName { get; set; }
         public string  Source { get; set; }
         public string  Message { get; set; }
         public int LineNumber { get; set; }

@@ -85,7 +85,7 @@ namespace MerchantDistributorService_API.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         public HttpResponseMessage GetCityByStates(States request)
         {
             try

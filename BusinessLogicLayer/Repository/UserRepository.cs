@@ -50,19 +50,19 @@ namespace Repository
                                 LoginDetails loginDetails = new LoginDetails()
                                 {
                                     Username = objUser.MobileNumber,
-                                    IsLocked = true,
+                                    IsLocked = false,
                                     LoginAttempts = 3
                                 };
                                 UpdateLoginDetails(loginDetails);
                                 serviceRes.IsSuccess = true;
                                 serviceRes.ReturnCode = "200";
-                                serviceRes.ReturnMsg = "User account is valid";
+                                serviceRes.ReturnMsg = "Valid user";
                             }
                             else {
                                 //return account suspended status
                                 serviceRes.IsSuccess = false;
                                 serviceRes.ReturnCode = "403";
-                                serviceRes.ReturnMsg = "Account suspended";
+                                serviceRes.ReturnMsg = "Account suspended contact your administrator";
                             }
                         }
                         else if (String.IsNullOrEmpty(objUser.Password) || decryptedPassword != objUser.Password)
@@ -70,21 +70,7 @@ namespace Repository
                             //decrese login attempts
                             //if attempts greater than zero set account status active and decrease attempts
                             loginAttempts = loginAttempts - 1;
-                            if (loginAttempts >= 0)
-                            {
-                                LoginDetails loginDetails = new LoginDetails()
-                                {
-                                    Username = objUser.MobileNumber,
-                                    IsLocked = true,
-                                    LoginAttempts = 3
-                                };
-                                UpdateLoginDetails(loginDetails);
-                                //update attempts left and return status as wrong password
-                                serviceRes.IsSuccess = false;
-                                serviceRes.ReturnCode = "403";
-                                serviceRes.ReturnMsg = "Wrong Password ";
-                            }
-                            else
+                            if (loginAttempts > 0)
                             {
                                 LoginDetails loginDetails = new LoginDetails()
                                 {
@@ -93,10 +79,24 @@ namespace Repository
                                     LoginAttempts = loginAttempts
                                 };
                                 UpdateLoginDetails(loginDetails);
+                                //update attempts left and return status as wrong password
+                                serviceRes.IsSuccess = false;
+                                serviceRes.ReturnCode = "403";
+                                serviceRes.ReturnMsg = $"Wrong Password attempts left {loginAttempts} ";
+                            }
+                            else
+                            {
+                                //LoginDetails loginDetails = new LoginDetails()
+                                //{
+                                //    Username = objUser.MobileNumber,
+                                //    IsLocked = true,
+                                //    LoginAttempts = 0
+                                //};
+                                //UpdateLoginDetails(loginDetails);
                                 //update if attempts equal to zero or less suspend the account and set attempts left to zero
-                                serviceRes.IsSuccess = true;
-                                serviceRes.ReturnCode = "";
-                                serviceRes.ReturnMsg = "";
+                                serviceRes.IsSuccess = false;
+                                serviceRes.ReturnCode = "500";
+                                serviceRes.ReturnMsg = "Account locked contact your administrator";
                             }
                         }
                     }

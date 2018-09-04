@@ -9,8 +9,8 @@ namespace Repository
 {
     public interface ICommonRepository
     {
-        ServiceRes<List<States>> GetStates();
-        ServiceRes<List<Cities>> GetCitiesByState(States states);
-        ServiceRes<List<Genders>> GetGenders();
+        ServiceRes GetStates();
+        ServiceRes GetCitiesByState(States states);
+        ServiceRes GetGenders();
     }
 }

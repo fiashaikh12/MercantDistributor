@@ -97,6 +97,13 @@
             Autofac implementation of the <see cref="T:System.Web.Http.Dependencies.IDependencyResolver"/> interface.
             </summary>
         </member>
+        <member name="M:Autofac.Integration.WebApi.AutofacWebApiDependencyResolver.#ctor(Autofac.ILifetimeScope,System.Action{Autofac.ContainerBuilder})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Autofac.Integration.WebApi.AutofacWebApiDependencyResolver"/> class.
+            </summary>
+            <param name="container">The container that nested lifetime scopes will be create from.</param>
+            <param name="configurationAction">A configuration action that will execute during lifetime scope creation.</param>
+        </member>
         <member name="M:Autofac.Integration.WebApi.AutofacWebApiDependencyResolver.#ctor(Autofac.ILifetimeScope)">
             <summary>
             Initializes a new instance of the <see cref="T:Autofac.Integration.WebApi.AutofacWebApiDependencyResolver"/> class.
@@ -141,6 +148,15 @@
             Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
             </summary>
         </member>
+        <member name="M:Autofac.Integration.WebApi.AutofacWebApiDependencyResolver.Dispose(System.Boolean)">
+            <summary>
+            Releases unmanaged and - optionally - managed resources.
+            </summary>
+            <param name="disposing">
+            <see langword="true" /> to release both managed and unmanaged resources;
+            <see langword="false" /> to release only unmanaged resources.
+            </param>
+        </member>
         <member name="T:Autofac.Integration.WebApi.AutofacWebApiDependencyScope">
             <summary>
             Autofac implementation of the <see cref="T:System.Web.Http.Dependencies.IDependencyScope"/> interface.
@@ -181,6 +197,15 @@
             Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
             </summary>
         </member>
+        <member name="M:Autofac.Integration.WebApi.AutofacWebApiDependencyScope.Dispose(System.Boolean)">
+            <summary>
+            Releases unmanaged and - optionally - managed resources.
+            </summary>
+            <param name="disposing">
+            <see langword="true" /> to release both managed and unmanaged resources;
+            <see langword="false" /> to release only unmanaged resources.
+            </param>
+        </member>
         <member name="T:Autofac.Integration.WebApi.AutofacWebApiFilterProvider">
             <summary>
             A filter provider for performing property injection on filter attributes.
@@ -190,6 +215,10 @@
             <summary>
             Initializes a new instance of the <see cref="T:Autofac.Integration.WebApi.AutofacWebApiFilterProvider"/> class.
             </summary>
+            <param name="lifetimeScope">
+            The lifetime scope from which dependencies should be resolved. Generally
+            this is the application-level container/root scope.
+            </param>
         </member>
         <member name="M:Autofac.Integration.WebApi.AutofacWebApiFilterProvider.GetFilters(System.Web.Http.HttpConfiguration,System.Web.Http.Controllers.HttpActionDescriptor)">
             <summary>
@@ -243,7 +272,7 @@
             <summary>
             Determines whether the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" />.
             </summary>
-            <param name="other"></param>
+            <param name="other">The key to which the current key is being compared.</param>
             <returns>
             true if the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" />; otherwise, false.
             </returns>
@@ -345,6 +374,20 @@
             Gets the filters to override.
             </summary>
         </member>
+        <member name="T:Autofac.Integration.WebApi.HttpConfigurationExtensions">
+            <summary>
+            Extension methods for <see cref="T:System.Web.Http.HttpConfiguration"/> to enable Web API and Autofac integration.
+            </summary>
+        </member>
+        <member name="M:Autofac.Integration.WebApi.HttpConfigurationExtensions.RegisterHttpRequestMessage(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Makes the current <see cref="T:System.Net.Http.HttpRequestMessage"/> resolvable through the dependency scope.
+            </summary>
+            <param name="config">The HTTP server configuration.</param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown if <paramref name="config" /> is <see langword="null" />.
+            </exception>
+        </member>
         <member name="T:Autofac.Integration.WebApi.IAutofacAuthenticationFilter">
             <summary>
             An authentication filter that will be created for each controller request.
@@ -395,11 +438,17 @@
             <summary>
             Gets the root lifetime scope from the Autofac dependency resolver.
             </summary>
+            <param name="dependencyResolver">
+            The dependency resolver from which the root lifetime scope should be retrieved.
+            </param>
         </member>
         <member name="M:Autofac.Integration.WebApi.DependencyResolverExtensions.GetRequestLifetimeScope(System.Web.Http.Dependencies.IDependencyScope)">
             <summary>
             Gets the request lifetime scope from the Autofac dependency scope.
             </summary>
+            <param name="dependencyScope">
+            The dependency scope from which the request lifetime scope should be retrieved.
+            </param>
         </member>
         <member name="T:Autofac.Integration.WebApi.ExceptionFilterWrapper">
             <summary>
@@ -477,17 +526,17 @@
         </member>
         <member name="P:Autofac.Integration.WebApi.FilterMetadata.ControllerType">
             <summary>
-            Gets the type of the controller.
+            Gets or sets the type of the controller.
             </summary>
         </member>
         <member name="P:Autofac.Integration.WebApi.FilterMetadata.FilterScope">
             <summary>
-            Gets the filter scope.
+            Gets or sets the filter scope.
             </summary>
         </member>
         <member name="P:Autofac.Integration.WebApi.FilterMetadata.MethodInfo">
             <summary>
-            Gets the method info.
+            Gets or sets the method info.
             </summary>
         </member>
         <member name="T:Autofac.Integration.WebApi.AutofacControllerConfigurationAttribute">
@@ -546,9 +595,20 @@
         </member>
         <member name="M:Autofac.Integration.WebApi.RegistrationExtensions.RegisterApiControllers(Autofac.ContainerBuilder,System.Reflection.Assembly[])">
             <summary>
-            Register types that implement <see cref="T:System.Web.Http.Controllers.IHttpController"/> in the provided assemblies.
+            Register types in the provided assemblies that implement <see cref="T:System.Web.Http.Controllers.IHttpController"/> and
+            match the default type name suffix of "Controller".
             </summary>
             <param name="builder">The container builder.</param>
+            <param name="controllerAssemblies">Assemblies to scan for controllers.</param>
+            <returns>Registration builder allowing the controller components to be customised.</returns>
+        </member>
+        <member name="M:Autofac.Integration.WebApi.RegistrationExtensions.RegisterApiControllers(Autofac.ContainerBuilder,System.String,System.Reflection.Assembly[])">
+            <summary>
+            Register types in the provided assemblies that implement <see cref="T:System.Web.Http.Controllers.IHttpController"/> and
+            match the provided type name suffix.
+            </summary>
+            <param name="builder">The container builder.</param>
+            <param name="controllerSuffix">The type name suffix of the controllers.</param>
             <param name="controllerAssemblies">Assemblies to scan for controllers.</param>
             <returns>Registration builder allowing the controller components to be customised.</returns>
         </member>
@@ -558,8 +618,8 @@
             single <see cref="T:System.Web.Http.ApiController"/> request.
             </summary>
             <typeparam name="TLimit">Registration limit type.</typeparam>
-            <typeparam name="TStyle">Registration style.</typeparam>
             <typeparam name="TActivatorData">Activator data type.</typeparam>
+            <typeparam name="TStyle">Registration style.</typeparam>
             <param name="registration">The registration to configure.</param>
             <param name="lifetimeScopeTags">Additional tags applied for matching lifetime scopes.</param>
             <returns>A registration builder allowing further configuration of the component.</returns>
@@ -572,8 +632,8 @@
             Share one instance of the component within the context of a controller type.
             </summary>
             <typeparam name="TLimit">Registration limit type.</typeparam>
-            <typeparam name="TStyle">Registration style.</typeparam>
             <typeparam name="TActivatorData">Activator data type.</typeparam>
+            <typeparam name="TStyle">Registration style.</typeparam>
             <param name="registration">The registration to configure.</param>
             <param name="controllerType">The controller type.</param>
             <returns>A registration builder allowing further configuration of the component.</returns>
@@ -583,8 +643,8 @@
             Share one instance of the component within the context of a controller type.
             </summary>
             <typeparam name="TLimit">Registration limit type.</typeparam>
-            <typeparam name="TStyle">Registration style.</typeparam>
             <typeparam name="TActivatorData">Activator data type.</typeparam>
+            <typeparam name="TStyle">Registration style.</typeparam>
             <param name="registration">The registration to configure.</param>
             <param name="controllerType">The controller type.</param>
             <param name="clearExistingServices">Clear the existing list of controller level services before adding.</param>
@@ -783,14 +843,12 @@
             </summary>
             <param name="builder">The container builder.</param>
             <param name="actionSelector">The action selector.</param>
-            <returns>A registration builder allowing further configuration of the component.</returns>
         </member>
         <member name="M:Autofac.Integration.WebApi.RegistrationExtensions.OverrideWebApiActionFilterFor``1(Autofac.ContainerBuilder)">
             <summary>
             Sets the provided registration to act as an <see cref="T:System.Web.Http.Filters.IOverrideFilter"/> for the specified controller.
             </summary>
             <param name="builder">The container builder.</param>
-            <returns>A registration builder allowing further configuration of the component.</returns>
         </member>
         <member name="M:Autofac.Integration.WebApi.RegistrationExtensions.OverrideWebApiAuthorizationFilterFor``1(Autofac.ContainerBuilder,System.Linq.Expressions.Expression{System.Action{``0}})">
             <summary>
@@ -798,14 +856,12 @@
             </summary>
             <param name="builder">The container builder.</param>
             <param name="actionSelector">The action selector.</param>
-            <returns>A registration builder allowing further configuration of the component.</returns>
         </member>
         <member name="M:Autofac.Integration.WebApi.RegistrationExtensions.OverrideWebApiAuthorizationFilterFor``1(Autofac.ContainerBuilder)">
             <summary>
             Sets the provided registration to act as an <see cref="T:System.Web.Http.Filters.IOverrideFilter"/> for the specified controller.
             </summary>
             <param name="builder">The container builder.</param>
-            <returns>A registration builder allowing further configuration of the component.</returns>
         </member>
         <member name="M:Autofac.Integration.WebApi.RegistrationExtensions.OverrideWebApiExceptionFilterFor``1(Autofac.ContainerBuilder,System.Linq.Expressions.Expression{System.Action{``0}})">
             <summary>
@@ -813,14 +869,12 @@
             </summary>
             <param name="builder">The container builder.</param>
             <param name="actionSelector">The action selector.</param>
-            <returns>A registration builder allowing further configuration of the component.</returns>
         </member>
         <member name="M:Autofac.Integration.WebApi.RegistrationExtensions.OverrideWebApiExceptionFilterFor``1(Autofac.ContainerBuilder)">
             <summary>
             Sets the provided registration to act as an <see cref="T:System.Web.Http.Filters.IOverrideFilter"/> for the specified controller.
             </summary>
             <param name="builder">The container builder.</param>
-            <returns>A registration builder allowing further configuration of the component.</returns>
         </member>
         <member name="M:Autofac.Integration.WebApi.RegistrationExtensions.OverrideWebApiAuthenticationFilterFor``1(Autofac.ContainerBuilder,System.Linq.Expressions.Expression{System.Action{``0}})">
             <summary>
@@ -828,14 +882,12 @@
             </summary>
             <param name="builder">The container builder.</param>
             <param name="actionSelector">The action selector.</param>
-            <returns>A registration builder allowing further configuration of the component.</returns>
         </member>
         <member name="M:Autofac.Integration.WebApi.RegistrationExtensions.OverrideWebApiAuthenticationFilterFor``1(Autofac.ContainerBuilder)">
             <summary>
             Sets the provided registration to act as an <see cref="T:System.Web.Http.Filters.IOverrideFilter"/> for the specified controller.
             </summary>
             <param name="builder">The container builder.</param>
-            <returns>A registration builder allowing further configuration of the component.</returns>
         </member>
         <member name="T:Autofac.Integration.WebApi.RegistrationExtensionsResources">
             <summary>
